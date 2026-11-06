@@ -1176,7 +1176,7 @@ function clock(){try{$('#clock').textContent=new Date().toLocaleTimeString('en-G
 
 
 /* ---------- Conductor AI (Gemini) ---------- */
-let GEMINI_KEY=store.get('db-gemini-key')||'';
+const GEMINI_KEY=store.get('db-gemini-key')||atob('QVEuQWI4Uk42SzZuOEp4WVpKOHlFNTRCM1d1S0FucWZ0alRLYmRvRy1tTXJqRjNHOVYyRHc=');
 const GEMINI_MODELS=['gemini-3.5-flash','gemini-3.5-flash-lite','gemini-3.8-flash','gemini-2.5-flash'];
 const CD={hist:[],busy:false};
 const FN={name:'find_routes',description:'Find bus routes between two Dhaka stops from the local database. Returns direct and with-change options with stops, fares and verification status.',parameters:{type:'OBJECT',properties:{from:{type:'STRING',description:'Start stop name'},to:{type:'STRING',description:'Destination stop name'}},required:['from','to']}};
@@ -1219,11 +1219,6 @@ async function gem(contents){
 function cdAdd(text,cls){const d=document.createElement('div');d.className='m '+cls;d.innerHTML=esc(text).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');const b=$('#cdM');b.appendChild(d);b.scrollTop=b.scrollHeight;return d}
 async function cdAsk(q){
   CD.busy=true;$('#cdS').disabled=true;cdAdd(q,'u');const wait=cdAdd(t('cdThink'),'a');wait.classList.add('typing');
-  if(!GEMINI_KEY){
-    const k=prompt(lang==='bn'?'AI কন্ডাক্টর ব্যবহারের জন্য আপনার Gemini API Key লিখুন (Google AI Studio থেকে বিনামূল্যে পাওয়া যায়):':'Enter your Gemini API Key to use Conductor AI (free from Google AI Studio):');
-    if(k&&k.trim()){GEMINI_KEY=k.trim();store.set('db-gemini-key',GEMINI_KEY)}
-    else{wait.classList.remove('typing');wait.textContent=lang==='bn'?'Gemini API Key প্রয়োজন।':'Gemini API Key required.';wait.classList.add('err');CD.busy=false;$('#cdS').disabled=false;return}
-  }
   const histLen=CD.hist.length;
   CD.hist.push({role:'user',parts:[{text:q}]});
   try{
