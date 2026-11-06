@@ -1,0 +1,24 @@
+{
+  "name": "DhkBusRoute - Dhaka Bus Routes & Fares",
+  "short_name": "DhkBusRoute",
+  "description": "Find Dhaka city bus routes, compare direct and transfer options, and calculate exact fares before you board.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#101418",
+  "theme_color": "#101418",
+  "categories": [
+    "travel",
+    "navigation",
+    "transit"
+  ],
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192 512x512 1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
